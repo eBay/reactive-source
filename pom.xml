@@ -5,7 +5,7 @@
 	<groupId>com.ebay.epd</groupId>
 	<artifactId>reactive-source</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>reactive=source</name>
+	<name>reactive-source</name>
 
 	<properties>
 		<!-- dependency properties -->
@@ -30,6 +30,7 @@
 	<dependencies>
 
 		<!-- PSQL -->
+		<!-- TODO remove together with psql code in seperate module -->
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -93,11 +94,6 @@
 			<artifactId>hamcrest-all</artifactId>
 			<version>${hamcrest.version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>${psql.jdbc.version}</version>
 		</dependency>
 	</dependencies>
 
