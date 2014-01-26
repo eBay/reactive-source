@@ -1,7 +1,7 @@
-package com.ebay.epd.reactivedb;
+package com.ebay.epd.reactivesource;
 
 import static com.ebay.epd.common.TestConstants.SMALL;
-import static com.ebay.epd.reactivedb.EventPoller.TIME_BETWEEN_POLLS;
+import static com.ebay.epd.reactivesource.EventPoller.TIME_BETWEEN_POLLS;
 import static java.lang.Thread.sleep;
 import static java.lang.Thread.State.TERMINATED;
 import static org.mockito.Matchers.any;
@@ -21,6 +21,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import com.ebay.epd.reactivesource.DataAccessException;
+import com.ebay.epd.reactivesource.EventChannel;
+import com.ebay.epd.reactivesource.EventPoller;
+import com.ebay.epd.reactivesource.EventSource;
 
 public class EventPollerTest {
 

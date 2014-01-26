@@ -1,16 +1,17 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
 import static com.ebay.epd.common.TestConstants.SMALL;
-import static com.ebay.epd.reactivedb.psql.ConnectionConstants.PASSWORD;
-import static com.ebay.epd.reactivedb.psql.ConnectionConstants.PSQL_URL;
-import static com.ebay.epd.reactivedb.psql.ConnectionConstants.USERNAME;
+import static com.ebay.epd.reactivesource.psql.ConnectionConstants.PASSWORD;
+import static com.ebay.epd.reactivesource.psql.ConnectionConstants.PSQL_URL;
+import static com.ebay.epd.reactivesource.psql.ConnectionConstants.USERNAME;
 import static org.testng.Assert.assertNotNull;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.ebay.epd.reactivedb.DataAccessException;
+import com.ebay.epd.reactivesource.DataAccessException;
+import com.ebay.epd.reactivesource.psql.PsqlConnectionProvider;
 
 /**
  * Created by kstamatoukos on 12/8/13.

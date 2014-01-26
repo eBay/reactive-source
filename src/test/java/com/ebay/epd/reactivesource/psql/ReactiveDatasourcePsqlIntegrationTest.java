@@ -1,10 +1,10 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
 import static com.ebay.epd.common.TestConstants.INTEGRATION;
-import static com.ebay.epd.reactivedb.psql.ConnectionConstants.PASSWORD;
-import static com.ebay.epd.reactivedb.psql.ConnectionConstants.PSQL_URL;
-import static com.ebay.epd.reactivedb.psql.ConnectionConstants.STREAM_NAME;
-import static com.ebay.epd.reactivedb.psql.ConnectionConstants.USERNAME;
+import static com.ebay.epd.reactivesource.psql.ConnectionConstants.PASSWORD;
+import static com.ebay.epd.reactivesource.psql.ConnectionConstants.PSQL_URL;
+import static com.ebay.epd.reactivesource.psql.ConnectionConstants.STREAM_NAME;
+import static com.ebay.epd.reactivesource.psql.ConnectionConstants.USERNAME;
 import static java.lang.Thread.sleep;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.spy;
@@ -21,10 +21,12 @@ import java.util.Map;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.ebay.epd.reactivedb.ConnectionProvider;
-import com.ebay.epd.reactivedb.Event;
-import com.ebay.epd.reactivedb.EventListener;
-import com.ebay.epd.reactivedb.ReactiveDatasource;
+import com.ebay.epd.reactivesource.ConnectionProvider;
+import com.ebay.epd.reactivesource.Event;
+import com.ebay.epd.reactivesource.EventListener;
+import com.ebay.epd.reactivesource.ReactiveDatasource;
+import com.ebay.epd.reactivesource.psql.PsqlConnectionProvider;
+import com.ebay.epd.reactivesource.psql.PsqlEventSource;
 
 public class ReactiveDatasourcePsqlIntegrationTest {
 

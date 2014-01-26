@@ -1,4 +1,4 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
 public class InvalidPayloadException extends RuntimeException {
     private static final long serialVersionUID = -3724701173093854056L;

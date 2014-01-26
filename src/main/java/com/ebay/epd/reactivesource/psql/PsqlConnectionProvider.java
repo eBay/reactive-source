@@ -1,4 +1,4 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
 import static org.springframework.util.Assert.hasText;
 
@@ -6,8 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.ebay.epd.reactivedb.ConnectionProvider;
-import com.ebay.epd.reactivedb.DataAccessException;
+import com.ebay.epd.reactivesource.ConnectionProvider;
+import com.ebay.epd.reactivesource.DataAccessException;
 
 
 /**

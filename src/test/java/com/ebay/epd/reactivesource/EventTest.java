@@ -1,10 +1,12 @@
-package com.ebay.epd.reactivedb;
+package com.ebay.epd.reactivesource;
 
 import static com.ebay.epd.common.TestConstants.SMALL;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 import org.testng.annotations.Test;
+
+import com.ebay.epd.reactivesource.Event;
 
 public class EventTest {
     private static final String DATA_NEW = "data";

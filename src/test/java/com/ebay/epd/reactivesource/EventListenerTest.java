@@ -1,4 +1,4 @@
-package com.ebay.epd.reactivedb;
+package com.ebay.epd.reactivesource;
 
 import static com.ebay.epd.common.TestConstants.SMALL;
 import static org.mockito.Mockito.doNothing;
@@ -15,6 +15,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.beust.jcommander.internal.Maps;
+import com.ebay.epd.reactivesource.Event;
+import com.ebay.epd.reactivesource.EventListener;
 
 public class EventListenerTest {
 

@@ -1,4 +1,4 @@
-package com.ebay.epd.reactivedb;
+package com.ebay.epd.reactivesource;
 
 import static com.ebay.epd.common.TestConstants.SMALL;
 import static org.mockito.Mockito.verify;
@@ -9,6 +9,11 @@ import static org.testng.Assert.assertTrue;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import com.ebay.epd.reactivesource.EventChannel;
+import com.ebay.epd.reactivesource.EventListener;
+import com.ebay.epd.reactivesource.EventPoller;
+import com.ebay.epd.reactivesource.ReactiveDatasource;
 
 public class ReactiveDatasourceTest {
 

@@ -1,4 +1,4 @@
-package com.ebay.epd.reactivedb;
+package com.ebay.epd.reactivesource;
 
 import static org.springframework.util.Assert.notNull;
 

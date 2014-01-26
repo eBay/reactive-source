@@ -1,4 +1,4 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
 import static org.springframework.util.Assert.notNull;
 import static org.springframework.util.Assert.state;
@@ -13,10 +13,10 @@ import java.util.Map;
 import org.postgresql.PGConnection;
 import org.postgresql.PGNotification;
 
-import com.ebay.epd.reactivedb.ConnectionProvider;
-import com.ebay.epd.reactivedb.DataAccessException;
-import com.ebay.epd.reactivedb.Event;
-import com.ebay.epd.reactivedb.EventSource;
+import com.ebay.epd.reactivesource.ConnectionProvider;
+import com.ebay.epd.reactivesource.DataAccessException;
+import com.ebay.epd.reactivesource.Event;
+import com.ebay.epd.reactivesource.EventSource;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 

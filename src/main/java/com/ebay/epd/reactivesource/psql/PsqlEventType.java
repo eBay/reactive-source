@@ -1,4 +1,4 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
 enum PsqlEventType {
     INSERT, UPDATE, DELETE;

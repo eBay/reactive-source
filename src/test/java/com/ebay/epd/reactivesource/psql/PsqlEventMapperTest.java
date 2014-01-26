@@ -1,7 +1,6 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
 import static com.ebay.epd.common.TestConstants.SMALL;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -10,7 +9,9 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 import com.beust.jcommander.internal.Maps;
-import com.ebay.epd.reactivedb.Event;
+import com.ebay.epd.reactivesource.Event;
+import com.ebay.epd.reactivesource.psql.InvalidPayloadException;
+import com.ebay.epd.reactivesource.psql.PsqlEventMapper;
 
 public class PsqlEventMapperTest {
 

@@ -1,4 +1,4 @@
-package com.ebay.epd.reactivedb;
+package com.ebay.epd.reactivesource;
 import static com.ebay.epd.common.TestConstants.SMALL;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -13,6 +13,9 @@ import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.ebay.epd.reactivesource.Event;
+import com.ebay.epd.reactivesource.EventChannel;
+import com.ebay.epd.reactivesource.EventListener;
 import com.google.common.collect.Maps;
 
 @SuppressWarnings("unchecked")

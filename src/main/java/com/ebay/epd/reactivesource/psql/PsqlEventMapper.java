@@ -1,9 +1,9 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
-import static com.ebay.epd.reactivedb.psql.PsqlPayloadConstants.EVENT_TYPE_KEY;
-import static com.ebay.epd.reactivedb.psql.PsqlPayloadConstants.NEW_ENTITY_KEY;
-import static com.ebay.epd.reactivedb.psql.PsqlPayloadConstants.OLD_ENTITY_KEY;
-import static com.ebay.epd.reactivedb.psql.PsqlPayloadConstants.TABLE_NAME_KEY;
+import static com.ebay.epd.reactivesource.psql.PsqlPayloadConstants.EVENT_TYPE_KEY;
+import static com.ebay.epd.reactivesource.psql.PsqlPayloadConstants.NEW_ENTITY_KEY;
+import static com.ebay.epd.reactivesource.psql.PsqlPayloadConstants.OLD_ENTITY_KEY;
+import static com.ebay.epd.reactivesource.psql.PsqlPayloadConstants.TABLE_NAME_KEY;
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
@@ -14,7 +14,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ebay.epd.reactivedb.Event;
+import com.ebay.epd.reactivesource.Event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 class PsqlEventMapper {

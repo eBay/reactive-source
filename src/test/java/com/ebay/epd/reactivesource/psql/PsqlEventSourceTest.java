@@ -1,7 +1,7 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
 import static com.ebay.epd.common.TestConstants.SMALL;
-import static com.ebay.epd.reactivedb.psql.PsqlEventSource.DUMMY_QUERY;
+import static com.ebay.epd.reactivesource.psql.PsqlEventSource.DUMMY_QUERY;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
@@ -30,10 +30,10 @@ import org.postgresql.PGNotification;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.ebay.epd.reactivedb.ConnectionProvider;
-import com.ebay.epd.reactivedb.DataAccessException;
-import com.ebay.epd.reactivedb.Event;
-import com.ebay.epd.reactivedb.EventSource;
+import com.ebay.epd.reactivesource.ConnectionProvider;
+import com.ebay.epd.reactivesource.DataAccessException;
+import com.ebay.epd.reactivesource.Event;
+import com.ebay.epd.reactivesource.EventSource;
 
 public class PsqlEventSourceTest {
 

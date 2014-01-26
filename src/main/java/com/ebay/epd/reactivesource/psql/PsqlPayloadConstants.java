@@ -1,4 +1,4 @@
-package com.ebay.epd.reactivedb.psql;
+package com.ebay.epd.reactivesource.psql;
 
 interface PsqlPayloadConstants {
     static final String EVENT_TYPE_KEY = "eventType"; 
