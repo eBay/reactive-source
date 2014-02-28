@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#=======================================================
+# Copyright (c) 2013-2014 eBay Software Foundation
+#
+# See the file license.txt for copying permission.
+#======================================================= 
+
 setup_notifications () {
   # load create_notify_with_json source
   local DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

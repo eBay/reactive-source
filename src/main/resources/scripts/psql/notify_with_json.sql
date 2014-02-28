@@ -1,3 +1,9 @@
+/* =======================================================
+ * Copyright (c) 2013-2014 eBay Software Foundation
+ *
+ * See the file license.txt for copying permission.
+ * ======================================================= */
+
 CREATE OR REPLACE FUNCTION notify_with_json() RETURNS trigger AS $$
 DECLARE
   newDataJson TEXT;

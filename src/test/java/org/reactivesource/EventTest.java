@@ -1,3 +1,8 @@
+/*******************************************************************************
+ * Copyright (c) 2013-2014 eBay Software Foundation
+ * 
+ * See the file license.txt for copying permission.
+ ******************************************************************************/
 package org.reactivesource;
 
 import static org.reactivesource.common.TestConstants.SMALL;

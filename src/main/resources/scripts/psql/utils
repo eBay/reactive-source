@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#=======================================================
+# Copyright (c) 2013-2014 eBay Software Foundation
+#
+# See the file license.txt for copying permission.
+#======================================================= 
+
 usage_connection() {
 cat << EOF
 Usage: $0 OPTIONS
@@ -45,7 +51,7 @@ readConnectionParams() {
   PORT=5432
   PASSWORD=
 
-  while getopts “:h:d:u:p:P:t:s:” OPTION
+  while getopts ���:h:d:u:p:P:t:s:��� OPTION
   do
        case $OPTION in
            h)
@@ -81,7 +87,7 @@ readTableAndStreamParams() {
   STREAM_NAME=
   TABLE_NAME=
 
-  while getopts “:h:d:u:p:P:t:s:” OPTION
+  while getopts ���:h:d:u:p:P:t:s:��� OPTION
   do
        case $OPTION in
            t)
