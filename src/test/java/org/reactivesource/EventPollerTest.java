@@ -21,14 +21,9 @@ import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
 
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.lang.reflect.Method;
 
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.reactivesource.DataAccessException;
-import org.reactivesource.EventChannel;
-import org.reactivesource.EventPoller;
-import org.reactivesource.EventSource;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
