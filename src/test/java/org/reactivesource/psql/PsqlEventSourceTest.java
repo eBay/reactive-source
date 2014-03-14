@@ -43,7 +43,8 @@ import org.testng.annotations.Test;
 
 public class PsqlEventSourceTest {
 
-    private static final String STREAM_NAME = "streamName";
+    private static final String TABLE_NAME = ConnectionConstants.TEST_TABLE_NAME;
+    private static final String STREAM_NAME = TABLE_NAME + PsqlEventSource.STREAM_NAME_SUFFIX;
     private static final String APASSWORD = "apassword";
     private static final String AUSERNAME = "ausername";
     private static final String AURL = "aurl";
@@ -69,23 +70,23 @@ public class PsqlEventSourceTest {
     @BeforeMethod(groups = SMALL)
     public void setUp() throws SQLException {
         initMocks(this);
-        eventSource = new PsqlEventSource(connectionProvider, STREAM_NAME, mapper);
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, mapper);
         setupConnectionProviderAndConnectionMocks();
     }
 
     @Test(groups = SMALL)
     public void testCanInitializePsqlEventSourceWithUrlUsernameAndPassword() {
-        assertNotNull(new PsqlEventSource(AURL, AUSERNAME, APASSWORD, STREAM_NAME));
+        assertNotNull(new PsqlEventSource(AURL, AUSERNAME, APASSWORD, TABLE_NAME));
     }
 
     @Test(groups = SMALL)
     public void testCanInitializePsqlEventSourceWithAConnectionProvider() {
-        assertNotNull(new PsqlEventSource(mock(ConnectionProvider.class), STREAM_NAME));
+        assertNotNull(new PsqlEventSource(mock(ConnectionProvider.class), TABLE_NAME));
     }
 
     @Test(groups = SMALL, expectedExceptions = IllegalArgumentException.class)
     public void testCanNotInitializeWithNullConnectionProvider() {
-        new PsqlEventSource(null, STREAM_NAME);
+        new PsqlEventSource(null, TABLE_NAME);
     }
 
     @Test(groups = SMALL, expectedExceptions = IllegalArgumentException.class)
@@ -206,7 +207,7 @@ public class PsqlEventSourceTest {
     @Test(groups = SMALL)
     public void testGetNewEventsParsesCorrectlyTheNotificationsPaylodToCreateANewEvent() throws SQLException {
         mapper = new PsqlEventMapper();
-        eventSource = new PsqlEventSource(connectionProvider, STREAM_NAME, mapper);
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, mapper);
 
         when(mockedPgConnection.getNotifications()).thenReturn(new PGNotification[] {
                 new MyPGNotification(STREAM_NAME, VALID_PAYLOAD)
@@ -227,7 +228,7 @@ public class PsqlEventSourceTest {
     @Test(groups = SMALL, expectedExceptions = DataAccessException.class)
     public void testGetNewEventsThrowsDataAccessExceptionWhenNewEventPayloadIsNotCorrect() throws SQLException {
         mapper = new PsqlEventMapper();
-        eventSource = new PsqlEventSource(connectionProvider, STREAM_NAME, mapper);
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, mapper);
 
         when(mockedPgConnection.getNotifications()).thenReturn(new PGNotification[] {
                 new MyPGNotification(STREAM_NAME, INVALID_PAYLOAD)

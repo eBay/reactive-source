@@ -35,28 +35,31 @@ public class PsqlEventSource implements EventSource {
 
     static final String REGISTER_STREAM_QUERY = "LISTEN ";
     static final String DUMMY_QUERY = "SELECT 1";
+    static final String STREAM_NAME_SUFFIX = "_reactivesource";
 
     private ConnectionProvider connectionProvider;
     private Connection connection = null;
     private String streamName;
     private PsqlEventMapper mapper;
+    private PsqlConfigurator configurator;
 
-    public PsqlEventSource(String dbUrl, String username, String password, String streamName) {
-        this(new PsqlConnectionProvider(dbUrl, username, password), streamName);
+    public PsqlEventSource(String dbUrl, String username, String password, String tableName) {
+        this(new PsqlConnectionProvider(dbUrl, username, password), tableName);
     }
 
-    public PsqlEventSource(ConnectionProvider connectionProvider, String streamName) {
-        this(connectionProvider, streamName, new PsqlEventMapper());
+    public PsqlEventSource(ConnectionProvider connectionProvider, String tableName) {
+        this(connectionProvider, tableName, new PsqlEventMapper());
     }
 
     @VisibleForTesting
-    public PsqlEventSource(ConnectionProvider connectionProvider, String streamName, PsqlEventMapper mapper) {
+    public PsqlEventSource(ConnectionProvider connectionProvider, String tableName, PsqlEventMapper mapper) {
         notNull(connectionProvider, "connectionProvider can not be null");
-        notNull(streamName, "streamName can not be null");
+        notNull(tableName, "tableName can not be null");
         notNull(mapper, "mapper can not be null");
         this.connectionProvider = connectionProvider;
-        this.streamName = streamName;
         this.mapper = mapper;
+        this.streamName = tableName + STREAM_NAME_SUFFIX;
+        this.configurator = new PsqlConfigurator(connectionProvider, tableName, streamName);
     }
 
     public List<Event<Map<String, Object>>> getNewEvents() throws DataAccessException {
@@ -96,6 +99,14 @@ public class PsqlEventSource implements EventSource {
         } catch (SQLException sqle) {
             throw new DataAccessException(ERROR_MSG_CHECK_CONNECTION, sqle);
         }
+    }
+
+    public void setup() {
+        configurator.setup();
+    }
+
+    public void cleanup() {
+        configurator.cleanup();
     }
 
     /**
@@ -164,13 +175,13 @@ public class PsqlEventSource implements EventSource {
     }
 
     /**
-     * For every notification create a meaningful {@link Event} and return a list of events.
-     * Uses the mapper to parse the JSON payload of the PGNotification
+     * For every notification create a meaningful {@link Event} and return a list of events. Uses the mapper to parse
+     * the JSON payload of the PGNotification
      * 
      * @param notifications
      * @return a list of {@link Event}s, one for each notification
      */
-    
+
     private List<Event<Map<String, Object>>> parseNotificationsArray(PGNotification[] notifications) {
         List<Event<Map<String, Object>>> result = Lists.newArrayList();
         if (notifications != null) {

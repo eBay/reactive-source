@@ -131,13 +131,32 @@ public class EventPollerTest {
     }
 
     @Test(groups = SMALL)
-    public void testPollerStopsWhenStopMethodIsCalled() throws InterruptedException, NoSuchMethodException, SecurityException {
+    public void testPollerStopsWhenStopMethodIsCalled()
+            throws InterruptedException,
+                NoSuchMethodException,
+                SecurityException {
         Thread pollerThread = startPollingThread();
         poller.stop();
 
         sleep(100L);
         assertEquals(pollerThread.getState(), TERMINATED);
 
+    }
+
+    @Test(groups = SMALL)
+    public void testInWhenPollerStartsInvokesTheSetupMethodOfTheEventSource() throws InterruptedException {
+        startPollingThread();
+        sleep(100L);
+        verify(evtSource).setup();
+    }
+
+    @Test(groups = SMALL)
+    public void testInWhenPollerStopsInvokesTheSetupMethodOfTheEventSource() throws InterruptedException {
+        startPollingThread();
+        poller.stop();
+
+        sleep(100L);
+        verify(evtSource).cleanup();
     }
 
     @Test(groups = SMALL)

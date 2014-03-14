@@ -132,6 +132,7 @@
 				<configuration>
 					<suiteXmlFiles>
 						<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/testng-psql.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>

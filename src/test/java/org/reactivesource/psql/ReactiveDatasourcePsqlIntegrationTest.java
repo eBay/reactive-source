@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.reactivesource.common.TestConstants.INTEGRATION;
 import static org.reactivesource.psql.ConnectionConstants.PASSWORD;
 import static org.reactivesource.psql.ConnectionConstants.PSQL_URL;
-import static org.reactivesource.psql.ConnectionConstants.STREAM_NAME;
+import static org.reactivesource.psql.ConnectionConstants.TEST_TABLE_NAME;
 import static org.reactivesource.psql.ConnectionConstants.USERNAME;
 import static org.testng.Assert.fail;
 
@@ -27,14 +27,12 @@ import org.reactivesource.ConnectionProvider;
 import org.reactivesource.Event;
 import org.reactivesource.EventListener;
 import org.reactivesource.ReactiveDatasource;
-import org.reactivesource.psql.PsqlConnectionProvider;
-import org.reactivesource.psql.PsqlEventSource;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class ReactiveDatasourcePsqlIntegrationTest {
 
-    private static final String TEST_TABLE = "test";
+    private static final String TEST_TABLE = TEST_TABLE_NAME;
 
     ConnectionProvider connectionProvider = new PsqlConnectionProvider(PSQL_URL, USERNAME, PASSWORD);
 
@@ -51,7 +49,7 @@ public class ReactiveDatasourcePsqlIntegrationTest {
     public void testReactiveDatasourceBehaviorForPsqlEventSource() throws InterruptedException {
         int ENTITIES = 10;
         // create new ReactiveEventSource
-        PsqlEventSource eventSource = new PsqlEventSource(connectionProvider, STREAM_NAME);
+        PsqlEventSource eventSource = new PsqlEventSource(connectionProvider, TEST_TABLE);
         ReactiveDatasource<String> rds = new ReactiveDatasource<String>(eventSource);
 
         // add new eventListener
@@ -76,9 +74,9 @@ public class ReactiveDatasourcePsqlIntegrationTest {
         verify(eventListener, times(ENTITIES)).onEvent(any(Event.class));
     }
 
-    @Test(groups = INTEGRATION, enabled = true)
+    @Test(groups = INTEGRATION, enabled = false)
     public void testManually() throws InterruptedException {
-        PsqlEventSource eventSource = new PsqlEventSource(connectionProvider, STREAM_NAME);
+        PsqlEventSource eventSource = new PsqlEventSource(connectionProvider, TEST_TABLE);
         ReactiveDatasource<String> rds = new ReactiveDatasource<String>(eventSource);
 
         // add new eventListener

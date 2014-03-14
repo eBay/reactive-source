@@ -31,16 +31,21 @@ class EventPoller<T> implements Runnable {
     }
 
     public void run() {
-        while (runnable) {
-            verifyConnectionToEventSource();
-            try {
-                pushNewEventsToEventChannel(eventSource.getNewEvents());
-                Thread.sleep(TIME_BETWEEN_POLLS);
-            } catch (InterruptedException ie) {
-                logger.warn("The EventPoller thread was interrupted. The excecution will continue.", ie);
-            } catch (DataAccessException dae) {
-                logger.warn("Could not get new events from EventSource.", dae);
+        try {
+            eventSource.setup();
+            while (runnable) {
+                verifyConnectionToEventSource();
+                try {
+                    pushNewEventsToEventChannel(eventSource.getNewEvents());
+                    Thread.sleep(TIME_BETWEEN_POLLS);
+                } catch (InterruptedException ie) {
+                    logger.warn("The EventPoller thread was interrupted. The excecution will continue.", ie);
+                } catch (DataAccessException dae) {
+                    logger.warn("Could not get new events from EventSource.", dae);
+                }
             }
+        } finally {
+            eventSource.cleanup();
         }
     }
 

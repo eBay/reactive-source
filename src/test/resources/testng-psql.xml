@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Interface and api tests" parallel="tests" thread-count="10" verbose="1">
+<suite name="Postgres Specific Tests" parallel="tests" thread-count="10" verbose="1">
 	<test name="Small Tests">
 		<groups>
 			<run>
@@ -9,9 +9,7 @@
 			</run>
 		</groups>
 		<packages>
-			<package name="org.reactivesource.*">
-				<exclude name="org.reactivesource.psql"></exclude>
-			</package>
+			<package name="org.reactivesource.psql.*"></package>
 		</packages>
 	</test>
 	<test name="Integration Tests">
@@ -22,9 +20,7 @@
 			</run>
 		</groups>
 		<packages>
-			<package name="org.reactivesource.*">
-				<exclude name="org.reactivesource.psql"></exclude>
-			</package>
+			<package name="org.reactivesource.psql.*"></package>
 		</packages>
  	</test>
 </suite>

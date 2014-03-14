@@ -8,7 +8,6 @@ package org.reactivesource.psql;
 import static org.reactivesource.common.TestConstants.INTEGRATION;
 import static org.reactivesource.psql.ConnectionConstants.PASSWORD;
 import static org.reactivesource.psql.ConnectionConstants.PSQL_URL;
-import static org.reactivesource.psql.ConnectionConstants.STREAM_NAME;
 import static org.reactivesource.psql.ConnectionConstants.USERNAME;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -31,7 +30,7 @@ import org.testng.annotations.Test;
 
 public class PsqlEventSourceIntegrationTest {
 
-    private static final String TEST_TABLE = "test";
+    private static final String TEST_TABLE = ConnectionConstants.TEST_TABLE_NAME;
     private static final String WRONG_USERNAME = "wrong";
 
     private PsqlEventSource eventSource;
@@ -41,19 +40,20 @@ public class PsqlEventSourceIntegrationTest {
     public void setUp() {
         connectionProvider = new PsqlConnectionProvider(PSQL_URL, USERNAME, PASSWORD);
         cleanupDatabase();
-        eventSource = new PsqlEventSource(connectionProvider, STREAM_NAME);
+        eventSource = new PsqlEventSource(connectionProvider, TEST_TABLE);
+        eventSource.setup();
     }
 
     @Test(groups = INTEGRATION)
     public void testConnectToEventSourceByUrl() {
-        eventSource = new PsqlEventSource(PSQL_URL, USERNAME, PASSWORD, STREAM_NAME);
+        eventSource = new PsqlEventSource(PSQL_URL, USERNAME, PASSWORD, TEST_TABLE);
         eventSource.connect();
         assertTrue(eventSource.isConnected());
     }
 
     @Test(groups = INTEGRATION, expectedExceptions = DataAccessException.class)
     public void testConnectWithWronCredentialsThrowsException() {
-        eventSource = new PsqlEventSource(PSQL_URL, WRONG_USERNAME, PASSWORD, STREAM_NAME);
+        eventSource = new PsqlEventSource(PSQL_URL, WRONG_USERNAME, PASSWORD, TEST_TABLE);
         eventSource.connect();
     }
 

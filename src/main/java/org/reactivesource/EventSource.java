@@ -41,4 +41,16 @@ public interface EventSource {
      *         otherwise
      */
     public boolean isConnected();
+
+    /**
+     * This method is responsible for setting up (if needed) the given data source. It is called when a
+     * ReactiveDatasource is instantiated.
+     */
+    public void setup();
+
+    /**
+     * This method should be called when one doesn't need the EventSource any more. It is responsible for cleaning up
+     * the database and releasing resources.
+     */
+    public void cleanup();
 }
