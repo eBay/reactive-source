@@ -5,6 +5,7 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
+import static java.lang.String.format;
 import static org.springframework.util.Assert.notNull;
 import static org.springframework.util.Assert.state;
 
@@ -21,6 +22,7 @@ import org.reactivesource.ConnectionProvider;
 import org.reactivesource.DataAccessException;
 import org.reactivesource.Event;
 import org.reactivesource.EventSource;
+import org.reactivesource.common.JdbcUtils;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
@@ -42,24 +44,108 @@ public class PsqlEventSource implements EventSource {
     private String streamName;
     private PsqlEventMapper mapper;
     private PsqlConfigurator configurator;
+    private boolean autoConfig;
 
+    /**
+     * <p>
+     * Creates a reactive source for the given datasource and table.
+     * </p>
+     * 
+     * <p>
+     * AutoConfigure by default is ON. The reactive source will try to configure the db. Requires TRIGGER and CREATE
+     * privileges.
+     * </p>
+     * 
+     * @param dbUrl
+     *            The URL of postgres database to connect to
+     * @param username
+     *            The username for the connection
+     * @param password
+     *            The password for the connection
+     * @param tableName
+     *            The table where the notifications will be coming from
+     */
     public PsqlEventSource(String dbUrl, String username, String password, String tableName) {
+        this(dbUrl, username, password, tableName, true);
+    }
+
+    /**
+     * <p>
+     * Creates a reactive source for the given datasource and table, and sets auto-config accordign to the given value.
+     * </p>
+     * 
+     * <p>
+     * auto-config is ON by default. The reactive source will try to configure the db. Requires TRIGGER and CREATE
+     * privileges.
+     * </p>
+     * 
+     * @param dbUrl
+     *            The URL of postgres database to connect to
+     * @param username
+     *            The username for the connection
+     * @param password
+     *            The password for the connection
+     * @param tableName
+     *            The table where the notifications will be coming from
+     * @param autoConfig
+     *            When true auto-config is ON. When false auto-config is OFF
+     */
+    public PsqlEventSource(String dbUrl, String username, String password, String tableName, boolean autoConfig) {
         this(new PsqlConnectionProvider(dbUrl, username, password), tableName);
     }
 
+    /**
+     * <p>
+     * Creates a reactive datasource on the given connection and tableName.
+     * </p>
+     * <p>
+     * auto-config is ON by default. The reactive source will try to configure the db. Requires TRIGGER and CREATE
+     * privileges.
+     * </p>
+     * 
+     * @param connectionProvider
+     * @param tableName
+     */
     public PsqlEventSource(ConnectionProvider connectionProvider, String tableName) {
-        this(connectionProvider, tableName, new PsqlEventMapper());
+        this(connectionProvider, tableName, true);
+    }
+
+    /**
+     * <p>
+     * Creates a reactive datasource on the given connection and tableName. Sets the auto-config to according to the
+     * given param
+     * </p>
+     * <p>
+     * auto-config is ON by default. The reactive source will try to configure the db. Requires TRIGGER and CREATE
+     * privileges.
+     * </p>
+     * 
+     * @param connectionProvider
+     * @param tableName
+     */
+    public PsqlEventSource(ConnectionProvider connectionProvider, String tableName, boolean autoConfig) {
+        this(connectionProvider, tableName, new PsqlEventMapper(), autoConfig);
     }
 
     @VisibleForTesting
-    public PsqlEventSource(ConnectionProvider connectionProvider, String tableName, PsqlEventMapper mapper) {
+    PsqlEventSource(ConnectionProvider connectionProvider, String tableName, PsqlEventMapper mapper, boolean autoConfig) {
+        this(connectionProvider, tableName, mapper, autoConfig, new PsqlConfigurator(connectionProvider, tableName,
+                tableName + STREAM_NAME_SUFFIX));
+    }
+
+    @VisibleForTesting
+    public PsqlEventSource(ConnectionProvider connectionProvider, String tableName, PsqlEventMapper mapper,
+            boolean autoConfig, PsqlConfigurator configurator) {
         notNull(connectionProvider, "connectionProvider can not be null");
         notNull(tableName, "tableName can not be null");
         notNull(mapper, "mapper can not be null");
+        notNull(configurator, "configurator can not be null");
+        verifyConfiguration(connectionProvider, tableName);
+        this.autoConfig = autoConfig;
         this.connectionProvider = connectionProvider;
         this.mapper = mapper;
         this.streamName = tableName + STREAM_NAME_SUFFIX;
-        this.configurator = new PsqlConfigurator(connectionProvider, tableName, streamName);
+        this.configurator = configurator;
     }
 
     public List<Event<Map<String, Object>>> getNewEvents() throws DataAccessException {
@@ -102,11 +188,15 @@ public class PsqlEventSource implements EventSource {
     }
 
     public void setup() {
-        configurator.setup();
+        if (autoConfig) {
+            configurator.setup();
+        }
     }
 
     public void cleanup() {
-        configurator.cleanup();
+        if (autoConfig) {
+            configurator.cleanup();
+        }
     }
 
     /**
@@ -190,6 +280,24 @@ public class PsqlEventSource implements EventSource {
             }
         }
         return result;
+    }
+
+    private void verifyConfiguration(ConnectionProvider connectionProvider, String tableName) {
+        Connection connection = connectionProvider.getConnection();
+        try {
+            verifyTableExists(connection, tableName);
+        } finally {
+            JdbcUtils.closeConnection(connection);
+        }
+    }
+
+    private void verifyTableExists(Connection connection, String tableName) {
+        try {
+            connection.createStatement().executeQuery("SELECT * FROM " + tableName + " LIMIT 1");
+        } catch (SQLException sqle) {
+            throw new DataAccessException(format("Can't create eventSource. Table with name [%s] doesn't exist.",
+                    tableName));
+        }
     }
 
 }

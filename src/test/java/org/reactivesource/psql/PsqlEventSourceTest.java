@@ -9,6 +9,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,14 +31,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.postgresql.PGConnection;
 import org.postgresql.PGNotification;
 import org.reactivesource.ConnectionProvider;
 import org.reactivesource.DataAccessException;
 import org.reactivesource.Event;
 import org.reactivesource.EventSource;
-import org.reactivesource.psql.PsqlEventMapper;
-import org.reactivesource.psql.PsqlEventSource;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -45,9 +45,9 @@ public class PsqlEventSourceTest {
 
     private static final String TABLE_NAME = ConnectionConstants.TEST_TABLE_NAME;
     private static final String STREAM_NAME = TABLE_NAME + PsqlEventSource.STREAM_NAME_SUFFIX;
-    private static final String APASSWORD = "apassword";
-    private static final String AUSERNAME = "ausername";
-    private static final String AURL = "aurl";
+    private static final boolean WITH_AUTO_CONFIG = true;
+    private static final boolean NO_AUTO_CONFIG = false;
+
     private static final String VALID_PAYLOAD = "{\"eventType\":\"INSERT\","
             + "\"tableName\":\"aTable\","
             + "\"newEntity\":{\"a\":\"b\"},"
@@ -70,18 +70,13 @@ public class PsqlEventSourceTest {
     @BeforeMethod(groups = SMALL)
     public void setUp() throws SQLException {
         initMocks(this);
-        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, mapper);
         setupConnectionProviderAndConnectionMocks();
-    }
-
-    @Test(groups = SMALL)
-    public void testCanInitializePsqlEventSourceWithUrlUsernameAndPassword() {
-        assertNotNull(new PsqlEventSource(AURL, AUSERNAME, APASSWORD, TABLE_NAME));
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, mapper, WITH_AUTO_CONFIG);
     }
 
     @Test(groups = SMALL)
     public void testCanInitializePsqlEventSourceWithAConnectionProvider() {
-        assertNotNull(new PsqlEventSource(mock(ConnectionProvider.class), TABLE_NAME));
+        assertNotNull(new PsqlEventSource(connectionProvider, TABLE_NAME));
     }
 
     @Test(groups = SMALL, expectedExceptions = IllegalArgumentException.class)
@@ -97,14 +92,14 @@ public class PsqlEventSourceTest {
     @Test(groups = SMALL)
     public void testConnectUsesConnectionProviderToGetDbConnection() {
         eventSource.connect();
-        verify(connectionProvider).getConnection();
+        verify(connectionProvider, times(2)).getConnection();
     }
 
     @Test(groups = SMALL)
     public void testConnectDoesntGetANewConnectionIfOneAlreadyExistsAndIsOpen() {
         eventSource.connect();
         eventSource.connect();
-        verify(connectionProvider, times(1)).getConnection();
+        verify(connectionProvider, times(2)).getConnection();
     }
 
     @Test(groups = SMALL)
@@ -112,7 +107,7 @@ public class PsqlEventSourceTest {
         when(mockedConnection.isClosed()).thenReturn(true);
         eventSource.connect();
         eventSource.connect();
-        verify(connectionProvider, times(2)).getConnection();
+        verify(connectionProvider, times(3)).getConnection();
     }
 
     @Test(groups = SMALL)
@@ -207,7 +202,7 @@ public class PsqlEventSourceTest {
     @Test(groups = SMALL)
     public void testGetNewEventsParsesCorrectlyTheNotificationsPaylodToCreateANewEvent() throws SQLException {
         mapper = new PsqlEventMapper();
-        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, mapper);
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, mapper, WITH_AUTO_CONFIG);
 
         when(mockedPgConnection.getNotifications()).thenReturn(new PGNotification[] {
                 new MyPGNotification(STREAM_NAME, VALID_PAYLOAD)
@@ -228,7 +223,7 @@ public class PsqlEventSourceTest {
     @Test(groups = SMALL, expectedExceptions = DataAccessException.class)
     public void testGetNewEventsThrowsDataAccessExceptionWhenNewEventPayloadIsNotCorrect() throws SQLException {
         mapper = new PsqlEventMapper();
-        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, mapper);
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, mapper, WITH_AUTO_CONFIG);
 
         when(mockedPgConnection.getNotifications()).thenReturn(new PGNotification[] {
                 new MyPGNotification(STREAM_NAME, INVALID_PAYLOAD)
@@ -238,18 +233,76 @@ public class PsqlEventSourceTest {
         eventSource.getNewEvents();
     }
 
+    @Test(groups = SMALL)
+    public void testReactiveDataSourceDoesntAutoConfigureTheDbIfInitializedWithFalse() {
+        PsqlConfigurator configurator = mock(PsqlConfigurator.class);
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, new PsqlEventMapper(), NO_AUTO_CONFIG,
+                configurator);
+
+        eventSource.setup();
+        verify(configurator, never()).setup();
+    }
+
+    @Test(groups = SMALL)
+    public void testReactiveDataSourceDoesntAutoCleanupTheDbIfInitializedWithFalse() {
+        PsqlConfigurator configurator = mock(PsqlConfigurator.class);
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, new PsqlEventMapper(), NO_AUTO_CONFIG,
+                configurator);
+
+        eventSource.cleanup();
+        verify(configurator, never()).cleanup();
+    }
+
+    @Test(groups = SMALL)
+    public void testReactiveDataSourceDoesAutoCleanupTheDbIfInitializedWithTrue() {
+        PsqlConfigurator configurator = mock(PsqlConfigurator.class);
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, new PsqlEventMapper(), WITH_AUTO_CONFIG,
+                configurator);
+
+        eventSource.cleanup();
+        verify(configurator).cleanup();
+    }
+
+    @Test(groups = SMALL)
+    public void testReactiveDataSourceDoesAutoConfigTheDbIfInitializedWithTrue() {
+        PsqlConfigurator configurator = mock(PsqlConfigurator.class);
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME, new PsqlEventMapper(), WITH_AUTO_CONFIG,
+                configurator);
+
+        eventSource.setup();
+        verify(configurator).setup();
+    }
+
+    @Test(groups = SMALL, expectedExceptions = DataAccessException.class)
+    public void testReactiveDataSourceInstantiationFailsIfCannotConnectToTheDatabase() {
+        when(connectionProvider.getConnection()).thenThrow(new DataAccessException(""));
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME);
+    }
+
+    @Test(groups = SMALL, expectedExceptions = DataAccessException.class, expectedExceptionsMessageRegExp = ".*"
+            + TABLE_NAME + ".*")
+    public void testReactiveDataSourceInstantiationFailsIfTableDoentExist() throws SQLException {
+        Statement mockedStmt = mock(Statement.class);
+        when(mockedConnection.createStatement()).thenReturn(mockedStmt);
+        when(mockedStmt.executeQuery(Mockito.anyString())).thenThrow(new SQLException());
+
+        eventSource = new PsqlEventSource(connectionProvider, TABLE_NAME);
+    }
+
     private void setupConnectionProviderAndConnectionMocks() throws SQLException {
+        Connection firstConnectionDuringInit = mock(Connection.class);
         mockedPgConnection = mock(PGConnection.class, withSettings().extraInterfaces(Connection.class));
         mockedConnection = (Connection) mockedPgConnection;
 
         PreparedStatement mockedPreparedStmt = mock(PreparedStatement.class);
         Statement mockedStmt = mock(Statement.class);
 
-        when(connectionProvider.getConnection()).thenReturn(mockedConnection);
+        when(connectionProvider.getConnection()).thenReturn(firstConnectionDuringInit).thenReturn(mockedConnection);
         when(mockedConnection.isValid(anyInt())).thenReturn(true);
         when(mockedConnection.isClosed()).thenReturn(false);
         when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStmt);
         when(mockedConnection.createStatement()).thenReturn(mockedStmt);
+        when(firstConnectionDuringInit.createStatement()).thenReturn(mockedStmt);
     }
 
     private class MyPGNotification implements PGNotification {

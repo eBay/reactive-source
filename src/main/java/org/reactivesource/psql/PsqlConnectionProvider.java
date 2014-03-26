@@ -44,7 +44,7 @@ class PsqlConnectionProvider implements ConnectionProvider {
         try {
             return DriverManager.getConnection(dbUrl, username, password);
         } catch (SQLException sqle) {
-            throw new DataAccessException("Cannot connect to " + dbUrl + " for user: " + username, sqle);
+            throw new DataAccessException("Cannot connect to DB[" + dbUrl + "] for user[" + username +"]", sqle);
         }
     }
 }
