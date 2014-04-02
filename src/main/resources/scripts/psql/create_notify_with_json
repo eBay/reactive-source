@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#=======================================================
+# Copyright (c) 2013-2014 eBay Software Foundation
+#
+# See the file license.txt for copying permission.
+#======================================================= 
+
+create_notify_with_json () {
+
+  local SERVER=$1
+  local PORT=$2
+  local DATABASE=$3
+  local USERNAME=$4
+  local DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+  psql -h $SERVER -p $PORT -U $USERNAME -d $DATABASE -f "$DIR/notify_with_json.sql"
+
+}

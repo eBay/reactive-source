@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Postgres Specific Tests" parallel="tests" thread-count="10" verbose="1">
+	<test name="Small Tests">
+		<groups>
+			<run>
+				<include name="small" />
+				<exclude name="broken" />
+			</run>
+		</groups>
+		<packages>
+			<package name="org.reactivesource.psql.*"></package>
+		</packages>
+	</test>
+	<test name="Integration Tests">
+		<groups>
+			<run>
+				<include name="integration" />
+				<exclude name="broken" />
+			</run>
+		</groups>
+		<packages>
+			<package name="org.reactivesource.psql.*"></package>
+		</packages>
+ 	</test>
+</suite>
