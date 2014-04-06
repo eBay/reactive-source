@@ -5,26 +5,21 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
-import static org.reactivesource.common.JdbcUtils.closeResultset;
-import static org.reactivesource.common.JdbcUtils.closeStatement;
-import static org.springframework.util.Assert.hasText;
-import static org.springframework.util.Assert.notNull;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import org.apache.commons.io.IOUtils;
 import org.reactivesource.ConfigurationException;
 import org.reactivesource.ConnectionProvider;
 import org.reactivesource.DataAccessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.sql.*;
+
+import static org.reactivesource.common.JdbcUtils.closeResultset;
+import static org.reactivesource.common.JdbcUtils.closeStatement;
+import static org.springframework.util.Assert.hasText;
+import static org.springframework.util.Assert.notNull;
 
 class PsqlConfigurator {
 
@@ -177,8 +172,7 @@ class PsqlConfigurator {
 
     private String loadFunctionDefinition() {
         String fileName = FUNCTION_NAME + ".sql";
-        try (InputStream stream = getClass().getResourceAsStream(fileName);
-             StringWriter writer = new StringWriter()) {
+        try (StringWriter writer = new StringWriter()) {
             IOUtils.copy(getClass().getResourceAsStream(fileName), writer);
             return writer.toString();
         } catch (IOException e) {
