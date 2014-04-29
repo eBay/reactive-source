@@ -1,6 +1,6 @@
 package org.reactivesource.exceptions;
 
-public class ConfigurationException extends RuntimeException {
+public class ConfigurationException extends ReactiveException {
     private static final long serialVersionUID = -7104365629425825102L;
 
     public ConfigurationException() {
