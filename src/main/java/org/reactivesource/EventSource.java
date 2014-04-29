@@ -5,6 +5,8 @@
  ******************************************************************************/
 package org.reactivesource;
 
+import org.reactivesource.exceptions.DataAccessException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +17,7 @@ public interface EventSource {
      * 
      * @return A list of events that occurred between two different calls of this method.
      * 
-     * @throws DataAccessException
+     * @throws org.reactivesource.exceptions.DataAccessException
      *             if something goes wrong while trying to query the database for new events.
      */
     public List<Event<Map<String, Object>>> getNewEvents() throws DataAccessException;

@@ -35,7 +35,7 @@ import org.mockito.Mockito;
 import org.postgresql.PGConnection;
 import org.postgresql.PGNotification;
 import org.reactivesource.ConnectionProvider;
-import org.reactivesource.DataAccessException;
+import org.reactivesource.exceptions.DataAccessException;
 import org.reactivesource.Event;
 import org.reactivesource.EventSource;
 import org.testng.annotations.BeforeMethod;

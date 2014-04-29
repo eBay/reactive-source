@@ -10,6 +10,7 @@ import static org.springframework.util.Assert.notNull;
 import java.util.List;
 import java.util.Map;
 
+import org.reactivesource.exceptions.DataAccessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

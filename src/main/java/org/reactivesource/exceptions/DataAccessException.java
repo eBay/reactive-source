@@ -3,7 +3,7 @@
  * 
  * See the file license.txt for copying permission.
  ******************************************************************************/
-package org.reactivesource;
+package org.reactivesource.exceptions;
 
 public class DataAccessException extends RuntimeException {
     private static final long serialVersionUID = -3626787869503432098L;

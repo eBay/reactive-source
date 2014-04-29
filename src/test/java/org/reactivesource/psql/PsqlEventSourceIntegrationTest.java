@@ -21,10 +21,8 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
-import org.reactivesource.DataAccessException;
+import org.reactivesource.exceptions.DataAccessException;
 import org.reactivesource.Event;
-import org.reactivesource.psql.PsqlConnectionProvider;
-import org.reactivesource.psql.PsqlEventSource;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

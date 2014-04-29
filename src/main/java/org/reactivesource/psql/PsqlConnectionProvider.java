@@ -6,7 +6,7 @@
 package org.reactivesource.psql;
 
 import org.reactivesource.AbstractConnectionProvider;
-import org.reactivesource.DataAccessException;
+import org.reactivesource.exceptions.DataAccessException;
 
 
 /**

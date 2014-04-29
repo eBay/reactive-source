@@ -6,9 +6,9 @@
 package org.reactivesource.psql;
 
 import org.apache.commons.io.IOUtils;
-import org.reactivesource.ConfigurationException;
+import org.reactivesource.exceptions.ConfigurationException;
 import org.reactivesource.ConnectionProvider;
-import org.reactivesource.DataAccessException;
+import org.reactivesource.exceptions.DataAccessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -11,9 +11,7 @@ import static org.reactivesource.psql.ConnectionConstants.PSQL_URL;
 import static org.reactivesource.psql.ConnectionConstants.USERNAME;
 import static org.testng.Assert.assertNotNull;
 
-import org.reactivesource.DataAccessException;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
+import org.reactivesource.exceptions.DataAccessException;
 import org.testng.annotations.Test;
 
 /**

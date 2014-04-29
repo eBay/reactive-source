@@ -24,6 +24,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.reactivesource.exceptions.DataAccessException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
