@@ -16,10 +16,10 @@ public class Event<T> {
     public static final String INSERT_TYPE = "INSERT";
     public static final String DELETE_TYPE = "DELETE";
 
-    private final String eventType;
-    private final String entityName;
-    private final T oldEntity;
-    private final T newEntity;
+    protected final String eventType;
+    protected final String entityName;
+    protected final T oldEntity;
+    protected final T newEntity;
 
     public Event(String eventType, String entityName, T newEntity, T oldEntity) {
         hasText(eventType, "eventType can not be null or empty");

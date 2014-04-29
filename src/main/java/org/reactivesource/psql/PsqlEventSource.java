@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Copyright (c) 2013-2014 eBay Software Foundation
- * 
+ *
  * See the file license.txt for copying permission.
  ******************************************************************************/
 package org.reactivesource.psql;
@@ -50,20 +50,16 @@ public class PsqlEventSource implements EventSource {
      * <p>
      * Creates a reactive source for the given datasource and table.
      * </p>
-     * 
+     * <p/>
      * <p>
      * AutoConfigure by default is ON. The reactive source will try to configure the db. Requires TRIGGER and CREATE
      * privileges.
      * </p>
-     * 
-     * @param dbUrl
-     *            The URL of postgres database to connect to
-     * @param username
-     *            The username for the connection
-     * @param password
-     *            The password for the connection
-     * @param tableName
-     *            The table where the notifications will be coming from
+     *
+     * @param dbUrl     The URL of postgres database to connect to
+     * @param username  The username for the connection
+     * @param password  The password for the connection
+     * @param tableName The table where the notifications will be coming from
      */
     public PsqlEventSource(String dbUrl, String username, String password, String tableName) {
         this(dbUrl, username, password, tableName, true);
@@ -73,25 +69,20 @@ public class PsqlEventSource implements EventSource {
      * <p>
      * Creates a reactive source for the given datasource and table, and sets auto-config accordign to the given value.
      * </p>
-     * 
+     * <p/>
      * <p>
      * auto-config is ON by default. The reactive source will try to configure the db. Requires TRIGGER and CREATE
      * privileges.
      * </p>
-     * 
-     * @param dbUrl
-     *            The URL of postgres database to connect to
-     * @param username
-     *            The username for the connection
-     * @param password
-     *            The password for the connection
-     * @param tableName
-     *            The table where the notifications will be coming from
-     * @param autoConfig
-     *            When true auto-config is ON. When false auto-config is OFF
+     *
+     * @param dbUrl      The URL of postgres database to connect to
+     * @param username   The username for the connection
+     * @param password   The password for the connection
+     * @param tableName  The table where the notifications will be coming from
+     * @param autoConfig When true auto-config is ON. When false auto-config is OFF
      */
     public PsqlEventSource(String dbUrl, String username, String password, String tableName, boolean autoConfig) {
-        this(new PsqlConnectionProvider(dbUrl, username, password), tableName);
+        this(new PsqlConnectionProvider(dbUrl, username, password), tableName, autoConfig);
     }
 
     /**
@@ -102,7 +93,7 @@ public class PsqlEventSource implements EventSource {
      * auto-config is ON by default. The reactive source will try to configure the db. Requires TRIGGER and CREATE
      * privileges.
      * </p>
-     * 
+     *
      * @param connectionProvider
      * @param tableName
      */
@@ -119,7 +110,7 @@ public class PsqlEventSource implements EventSource {
      * auto-config is ON by default. The reactive source will try to configure the db. Requires TRIGGER and CREATE
      * privileges.
      * </p>
-     * 
+     *
      * @param connectionProvider
      * @param tableName
      */
@@ -127,15 +118,15 @@ public class PsqlEventSource implements EventSource {
         this(connectionProvider, tableName, new PsqlEventMapper(), autoConfig);
     }
 
-    @VisibleForTesting
-    PsqlEventSource(ConnectionProvider connectionProvider, String tableName, PsqlEventMapper mapper, boolean autoConfig) {
+    @VisibleForTesting PsqlEventSource(ConnectionProvider connectionProvider, String tableName, PsqlEventMapper mapper,
+                                       boolean autoConfig) {
         this(connectionProvider, tableName, mapper, autoConfig, new PsqlConfigurator(connectionProvider, tableName,
                 tableName + STREAM_NAME_SUFFIX));
     }
 
     @VisibleForTesting
     public PsqlEventSource(ConnectionProvider connectionProvider, String tableName, PsqlEventMapper mapper,
-            boolean autoConfig, PsqlConfigurator configurator) {
+                           boolean autoConfig, PsqlConfigurator configurator) {
         notNull(connectionProvider, "connectionProvider can not be null");
         notNull(tableName, "tableName can not be null");
         notNull(mapper, "mapper can not be null");
@@ -148,7 +139,7 @@ public class PsqlEventSource implements EventSource {
         this.configurator = configurator;
     }
 
-    public List<Event<Map<String, Object>>> getNewEvents() throws DataAccessException {
+    @Override public List<Event<Map<String, Object>>> getNewEvents() throws DataAccessException {
         state(connection != null, ERROR_MSG_ILLEGALSTATE);
         try {
             PGNotification[] notifications = getLatestEvents();
@@ -160,14 +151,14 @@ public class PsqlEventSource implements EventSource {
         }
     }
 
-    public void connect() throws DataAccessException {
+    @Override public void connect() throws DataAccessException {
         if (!isConnected()) {
             connection = connectionProvider.getConnection();
         }
         subscribeToStream();
     }
 
-    public void disconnect() {
+    @Override public void disconnect() {
         try {
             if (isConnectionOpen(connection)) {
                 connection.close();
@@ -178,7 +169,7 @@ public class PsqlEventSource implements EventSource {
         }
     }
 
-    public boolean isConnected() {
+    @Override public boolean isConnected() {
         try {
             return isConnectionOpen(connection) &&
                     isConnectionAlive(connection);
@@ -187,13 +178,13 @@ public class PsqlEventSource implements EventSource {
         }
     }
 
-    public void setup() {
+    @Override public void setup() {
         if (autoConfig) {
             configurator.setup();
         }
     }
 
-    public void cleanup() {
+    @Override public void cleanup() {
         if (autoConfig) {
             configurator.cleanup();
         }
@@ -201,10 +192,9 @@ public class PsqlEventSource implements EventSource {
 
     /**
      * Returns if the connection is alive. To do so, it issues a "SELECT 1" query in the database
-     * 
+     *
      * @param connection
      * @return <code>false</code> if the simple query fails or <code>true</code> otherwise
-     * 
      */
     private boolean isConnectionAlive(Connection connection) {
         try {
@@ -219,11 +209,10 @@ public class PsqlEventSource implements EventSource {
 
     /**
      * Method to check if the connection has been allocated and is not closed.
-     * 
+     *
      * @param connection
      * @return <code>true</code> if the connection has not been closed and is not <code>null</code>
-     * @throws SQLException
-     *             if <code>connection.isClosed()</code> fails
+     * @throws SQLException if <code>connection.isClosed()</code> fails
      */
     private boolean isConnectionOpen(Connection connection) throws SQLException {
         return (connection != null) && (!connection.isClosed());
@@ -244,7 +233,7 @@ public class PsqlEventSource implements EventSource {
 
     /**
      * Gets the latest events
-     * 
+     *
      * @return an array of PGNotification, one for each notification occurred since the last time one checked.
      * @throws SQLException
      */
@@ -267,7 +256,7 @@ public class PsqlEventSource implements EventSource {
     /**
      * For every notification create a meaningful {@link Event} and return a list of events. Uses the mapper to parse
      * the JSON payload of the PGNotification
-     * 
+     *
      * @param notifications
      * @return a list of {@link Event}s, one for each notification
      */

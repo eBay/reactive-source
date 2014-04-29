@@ -41,4 +41,16 @@ public class JdbcUtils {
             sqle.printStackTrace(System.err);
         }
     }
+
+    public static void sql(Connection connection, String sql) throws SQLException {
+        try (Statement stmt = connection.createStatement()){
+            String[] singleQueries = sql.split(";");
+            for ( String singleQuery : singleQueries) {
+                if (singleQuery.trim().isEmpty()) {
+                    continue;
+                }
+                stmt.execute(singleQuery.trim());
+            }
+        }
+    }
 }

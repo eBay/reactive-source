@@ -5,6 +5,7 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
+import static org.reactivesource.common.JsonParserUtils.jsonObjectToMap;
 import static org.reactivesource.psql.PsqlPayloadConstants.EVENT_TYPE_KEY;
 import static org.reactivesource.psql.PsqlPayloadConstants.NEW_ENTITY_KEY;
 import static org.reactivesource.psql.PsqlPayloadConstants.OLD_ENTITY_KEY;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 import org.reactivesource.Event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.reactivesource.common.JsonParserUtils;
 
 class PsqlEventMapper {
 
@@ -41,7 +43,7 @@ class PsqlEventMapper {
             Map<String, Object> newRow = jsonObjectToMap(jsonResponse.getJSONObject(NEW_ENTITY_KEY));
             Map<String, Object> oldRow = jsonObjectToMap(jsonResponse.getJSONObject(OLD_ENTITY_KEY));
 
-            Event<Map<String, Object>> event = new Event<Map<String, Object>>(eventType, tableName, newRow, oldRow);
+            Event<Map<String, Object>> event = new Event<>(eventType, tableName, newRow, oldRow);
             validateEvent(event);
             return event;
         } catch (JSONException je) {
@@ -60,15 +62,6 @@ class PsqlEventMapper {
             notNull(event.getOldEntity(), "Old entity was null");
         } catch (IllegalArgumentException iae) {
             throw new InvalidPayloadException(iae.getMessage());
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private Map<String, Object> jsonObjectToMap(JSONObject jsonObject) {
-        try {
-            return new ObjectMapper().readValue(jsonObject.toString(), HashMap.class);
-        } catch (IOException e) {
-            throw new JSONException("Could not map row entity:" + jsonObject.toString());
         }
     }
 }
