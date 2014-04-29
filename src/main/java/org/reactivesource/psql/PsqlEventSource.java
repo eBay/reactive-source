@@ -246,9 +246,7 @@ public class PsqlEventSource implements EventSource {
         if (rs != null) {
             rs.close();
         }
-        if (stmt != null) {
-            stmt.close();
-        }
+        stmt.close();
 
         return pgConnection.getNotifications();
     }

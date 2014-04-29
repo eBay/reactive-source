@@ -6,8 +6,8 @@
 package org.reactivesource.psql;
 
 import org.apache.commons.io.IOUtils;
-import org.reactivesource.exceptions.ConfigurationException;
 import org.reactivesource.ConnectionProvider;
+import org.reactivesource.exceptions.ConfigurationException;
 import org.reactivesource.exceptions.DataAccessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +24,9 @@ import static org.springframework.util.Assert.notNull;
 class PsqlConfigurator {
 
     private static final String TABLE_NAME_ERROR = "tableName can not be null or empty";
-    private final String CREATE_FUNCTION_ERROR = "Configuration failed. Couldn't create notify_with_json function.";
-    private final String STREAM_NAME_ERROR = "streamName can not be null or empty";
-    private final String NULL_CONNECTION_RPOVIDER_ERROR = "connectionProvider can not be null";
+    private static final String CREATE_FUNCTION_ERROR = "Configuration failed. Couldn't create notify_with_json function.";
+    private static final String STREAM_NAME_ERROR = "streamName can not be null or empty";
+    private static final String NULL_CONNECTION_RPOVIDER_ERROR = "connectionProvider can not be null";
 
     static final String TRIGGER_NAME_SUFFIX = PsqlEventSource.STREAM_NAME_SUFFIX + "_trigger";
 
@@ -64,14 +64,12 @@ class PsqlConfigurator {
     void createNotifyFunction() {
         logger.info("Creating '{}' if it doesn't exist", FUNCTION_NAME);
         Statement stmt = null;
-        ResultSet rs = null;
         try (Connection connection = connectionProvider.getConnection()) {
             stmt = connection.createStatement();
             stmt.executeUpdate(functionDefinition);
         } catch (SQLException e) {
             throw new ConfigurationException(CREATE_FUNCTION_ERROR, e);
         } finally {
-            closeResultset(rs);
             closeStatement(stmt);
         }
     }
@@ -80,7 +78,6 @@ class PsqlConfigurator {
         logger.info("Setting up trigger '{}' for table '{}' and stream '{}'", triggerName, tableName, streamName);
         if (!isTriggerCreated()) {
             Statement stmt = null;
-            ResultSet rs = null;
             try (Connection connection = connectionProvider.getConnection()) {
                 stmt = connection.createStatement();
                 stmt.executeUpdate(PsqlQueryGenerator.generateCreateTriggerQuery(triggerName, tableName,
@@ -88,7 +85,6 @@ class PsqlConfigurator {
             } catch (SQLException e) {
                 throw new ConfigurationException("Couldn't setup trigger", e);
             } finally {
-                closeResultset(rs);
                 closeStatement(stmt);
             }
         }
@@ -100,14 +96,12 @@ class PsqlConfigurator {
             return;
         }
         Statement stmt = null;
-        ResultSet rs = null;
         try (Connection connection = connectionProvider.getConnection()) {
             stmt = connection.createStatement();
             stmt.executeUpdate(PsqlQueryGenerator.generateDropProcQuery(FUNCTION_NAME));
         } catch (SQLException e) {
             throw new ConfigurationException("Couldn't drop notifyFunction", e);
         } finally {
-            closeResultset(rs);
             closeStatement(stmt);
         }
     }
@@ -115,14 +109,12 @@ class PsqlConfigurator {
     void dropTrigger() {
         logger.info("Dropping trigger '{}' for table '{}' and stream '{}'", triggerName, tableName, streamName);
         Statement stmt = null;
-        ResultSet rs = null;
         try (Connection connection = connectionProvider.getConnection()) {
             stmt = connection.createStatement();
             stmt.executeUpdate(PsqlQueryGenerator.generateDropTriggerQuery(triggerName, tableName));
         } catch (SQLException e) {
             throw new ConfigurationException("Couldn't drop trigger", e);
         } finally {
-            closeResultset(rs);
             closeStatement(stmt);
         }
     }
@@ -136,10 +128,7 @@ class PsqlConfigurator {
 
             rs = stmt.executeQuery();
 
-            if (!rs.next()) {
-                return false;
-            }
-            return true;
+            return rs.next();
         } catch (SQLException e) {
             throw new ConfigurationException("Configuration error! Couldn't check the existance of " + FUNCTION_NAME, e);
         } finally {
@@ -158,10 +147,7 @@ class PsqlConfigurator {
 
             rs = stmt.executeQuery();
 
-            if (!rs.next()) {
-                return false;
-            }
-            return true;
+            return rs.next();
         } catch (SQLException e) {
             throw new DataAccessException("", e);
         } finally {
@@ -180,7 +166,7 @@ class PsqlConfigurator {
         }
     }
 
-    private final String GET_PROC_QUERY = "SELECT proname "
+    private static final String GET_PROC_QUERY = "SELECT proname "
             + "FROM pg_catalog.pg_namespace n "
             + "JOIN pg_catalog.pg_proc p ON pronamespace = n.oid"
             + " WHERE nspname = current_schema() and proname = ?";
