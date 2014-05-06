@@ -35,6 +35,9 @@ public class JdbcUtils {
     public static void closeConnection(Connection connection) {
         try {
             if (connection != null) {
+                if (!connection.getAutoCommit()) {
+                    connection.rollback();
+                }
                 connection.close();
             }
         } catch (SQLException sqle) {

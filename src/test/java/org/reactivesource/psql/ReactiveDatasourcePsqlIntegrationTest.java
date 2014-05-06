@@ -50,7 +50,7 @@ public class ReactiveDatasourcePsqlIntegrationTest {
         int ENTITIES = 10;
         // create new ReactiveEventSource
         PsqlEventSource eventSource = new PsqlEventSource(connectionProvider, TEST_TABLE);
-        ReactiveDatasource<String> rds = new ReactiveDatasource<String>(eventSource);
+        ReactiveDatasource<String> rds = new ReactiveDatasource<>(eventSource);
 
         // add new eventListener
         rds.addEventListener(eventListener);
@@ -77,7 +77,7 @@ public class ReactiveDatasourcePsqlIntegrationTest {
     @Test(groups = INTEGRATION, enabled = false)
     public void testManually() throws InterruptedException {
         PsqlEventSource eventSource = new PsqlEventSource(connectionProvider, TEST_TABLE);
-        ReactiveDatasource<String> rds = new ReactiveDatasource<String>(eventSource);
+        ReactiveDatasource<String> rds = new ReactiveDatasource<>(eventSource);
 
         // add new eventListener
         rds.addEventListener(new EventListener<String>() {
