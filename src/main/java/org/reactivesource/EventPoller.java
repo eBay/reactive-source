@@ -46,6 +46,7 @@ class EventPoller<T> implements Runnable {
                 }
             }
         } finally {
+            eventSource.disconnect();
             eventSource.cleanup();
         }
     }

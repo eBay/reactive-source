@@ -152,7 +152,7 @@ public class EventPollerTest {
     }
 
     @Test(groups = SMALL)
-    public void testInWhenPollerStopsInvokesTheSetupMethodOfTheEventSource() throws InterruptedException {
+    public void testWhenPollerStopsInvokesTheCleanupMethodOfTheEventSource() throws InterruptedException {
         startPollingThread();
         poller.stop();
 
@@ -161,7 +161,16 @@ public class EventPollerTest {
     }
 
     @Test(groups = SMALL)
-    public void testDataAccessExceptionsDontStopThePollerFromContinueExecuting() throws InterruptedException {
+    public void testWhenPollerStopsInvokesTheDisconnectMethodOfTheEventSource() throws InterruptedException {
+        startPollingThread();
+        poller.stop();
+
+        sleep(100L);
+        verify(evtSource).disconnect();
+    }
+
+    @Test(groups = SMALL)
+    public void testDataAccessExceptionsDoesNotStopThePollerFromContinueExecuting() throws InterruptedException {
         when(evtSource.getNewEvents()).thenThrow(new DataAccessException(""));
 
         Thread pollerThread = startPollingThread();
