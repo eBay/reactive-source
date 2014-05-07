@@ -5,22 +5,16 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.withSettings;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.reactivesource.common.TestConstants.SMALL;
-import static org.reactivesource.psql.PsqlEventSource.DUMMY_QUERY;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.postgresql.PGConnection;
+import org.postgresql.PGNotification;
+import org.reactivesource.ConnectionProvider;
+import org.reactivesource.Event;
+import org.reactivesource.EventSource;
+import org.reactivesource.exceptions.DataAccessException;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,16 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.postgresql.PGConnection;
-import org.postgresql.PGNotification;
-import org.reactivesource.ConnectionProvider;
-import org.reactivesource.exceptions.DataAccessException;
-import org.reactivesource.Event;
-import org.reactivesource.EventSource;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.reactivesource.common.TestConstants.*;
+import static org.reactivesource.psql.PsqlEventSource.DUMMY_QUERY;
+import static org.testng.Assert.*;
 
 public class PsqlEventSourceTest {
 

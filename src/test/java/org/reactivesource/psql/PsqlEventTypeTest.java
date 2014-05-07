@@ -5,12 +5,10 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
-import static org.reactivesource.common.TestConstants.SMALL;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
-
-import org.reactivesource.psql.PsqlEventType;
 import org.testng.annotations.Test;
+
+import static org.reactivesource.common.TestConstants.*;
+import static org.testng.Assert.*;
 
 public class PsqlEventTypeTest {
 

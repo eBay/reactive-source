@@ -5,19 +5,14 @@
  ******************************************************************************/
 package org.reactivesource;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.reactivesource.common.TestConstants.SMALL;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
-
 import org.mockito.Mock;
-import org.reactivesource.EventChannel;
-import org.reactivesource.EventListener;
-import org.reactivesource.EventPoller;
-import org.reactivesource.ReactiveDatasource;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.reactivesource.common.TestConstants.*;
+import static org.testng.Assert.*;
 
 public class ReactiveDatasourceTest {
 

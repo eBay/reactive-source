@@ -5,28 +5,22 @@
  ******************************************************************************/
 package org.reactivesource;
 
-import static java.lang.Thread.sleep;
-import static java.lang.Thread.State.TERMINATED;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.reactivesource.EventPoller.TIME_BETWEEN_POLLS;
-import static org.reactivesource.common.TestConstants.SMALL;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
-import static org.testng.Assert.assertNotNull;
-
-import java.lang.Thread.UncaughtExceptionHandler;
-
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.reactivesource.exceptions.DataAccessException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.lang.Thread.UncaughtExceptionHandler;
+
+import static java.lang.Thread.State.TERMINATED;
+import static java.lang.Thread.sleep;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.reactivesource.EventPoller.TIME_BETWEEN_POLLS;
+import static org.reactivesource.common.TestConstants.*;
+import static org.testng.Assert.*;
 
 public class EventPollerTest {
 

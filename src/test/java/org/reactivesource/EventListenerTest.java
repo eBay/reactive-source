@@ -5,23 +5,17 @@
  ******************************************************************************/
 package org.reactivesource;
 
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.reactivesource.common.TestConstants.SMALL;
-import static org.testng.Assert.assertEquals;
-
-import java.util.Map;
-
+import com.beust.jcommander.internal.Maps;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.reactivesource.Event;
-import org.reactivesource.EventListener;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.beust.jcommander.internal.Maps;
+import java.util.Map;
+
+import static org.mockito.Mockito.*;
+import static org.reactivesource.common.TestConstants.*;
+import static org.testng.Assert.*;
 
 public class EventListenerTest {
 

@@ -5,9 +5,15 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
-import static java.lang.String.format;
-import static org.springframework.util.Assert.notNull;
-import static org.springframework.util.Assert.state;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.Lists;
+import org.postgresql.PGConnection;
+import org.postgresql.PGNotification;
+import org.reactivesource.ConnectionProvider;
+import org.reactivesource.Event;
+import org.reactivesource.EventSource;
+import org.reactivesource.common.JdbcUtils;
+import org.reactivesource.exceptions.DataAccessException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,16 +22,9 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
-import org.postgresql.PGConnection;
-import org.postgresql.PGNotification;
-import org.reactivesource.ConnectionProvider;
-import org.reactivesource.exceptions.DataAccessException;
-import org.reactivesource.Event;
-import org.reactivesource.EventSource;
-import org.reactivesource.common.JdbcUtils;
-
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.Lists;
+import static java.lang.String.format;
+import static org.springframework.util.Assert.notNull;
+import static org.springframework.util.Assert.state;
 
 public class PsqlEventSource implements EventSource {
 

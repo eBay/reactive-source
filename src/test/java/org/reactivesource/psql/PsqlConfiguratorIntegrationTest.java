@@ -5,29 +5,22 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
-import static org.reactivesource.common.JdbcUtils.closeResultset;
-import static org.reactivesource.common.JdbcUtils.closeStatement;
-import static org.reactivesource.common.TestConstants.INTEGRATION;
-import static org.reactivesource.psql.ConnectionConstants.PASSWORD;
-import static org.reactivesource.psql.ConnectionConstants.PSQL_URL;
-import static org.reactivesource.psql.ConnectionConstants.TEST_TABLE_NAME;
-import static org.reactivesource.psql.ConnectionConstants.USERNAME;
-import static org.reactivesource.psql.PsqlConfigurator.FUNCTION_NAME;
-import static org.reactivesource.psql.PsqlConfigurator.TRIGGER_NAME_SUFFIX;
-import static org.testng.Assert.assertTrue;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import org.reactivesource.exceptions.ConfigurationException;
 import org.reactivesource.ConnectionProvider;
+import org.reactivesource.exceptions.ConfigurationException;
 import org.reactivesource.exceptions.DataAccessException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.sql.*;
+
+import static org.reactivesource.common.JdbcUtils.closeResultset;
+import static org.reactivesource.common.JdbcUtils.closeStatement;
+import static org.reactivesource.common.TestConstants.*;
+import static org.reactivesource.psql.ConnectionConstants.*;
+import static org.reactivesource.psql.PsqlConfigurator.FUNCTION_NAME;
+import static org.reactivesource.psql.PsqlConfigurator.TRIGGER_NAME_SUFFIX;
+import static org.testng.Assert.*;
 
 public class PsqlConfiguratorIntegrationTest {
 

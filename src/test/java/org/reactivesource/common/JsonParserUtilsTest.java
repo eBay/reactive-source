@@ -11,7 +11,8 @@ import org.testng.annotations.Test;
 
 import java.util.Map;
 
-import static org.reactivesource.common.JsonParserUtils.*;
+import static org.reactivesource.common.JsonParserUtils.jsonObjectToMap;
+import static org.reactivesource.common.JsonParserUtils.jsonStringToMap;
 import static org.reactivesource.common.TestConstants.*;
 import static org.testng.Assert.*;
 

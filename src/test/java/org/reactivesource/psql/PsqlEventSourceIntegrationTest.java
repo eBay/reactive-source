@@ -5,14 +5,10 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
-import static org.reactivesource.common.TestConstants.INTEGRATION;
-import static org.reactivesource.psql.ConnectionConstants.PASSWORD;
-import static org.reactivesource.psql.ConnectionConstants.PSQL_URL;
-import static org.reactivesource.psql.ConnectionConstants.USERNAME;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
+import org.reactivesource.Event;
+import org.reactivesource.exceptions.DataAccessException;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,10 +17,9 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
-import org.reactivesource.exceptions.DataAccessException;
-import org.reactivesource.Event;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import static org.reactivesource.common.TestConstants.*;
+import static org.reactivesource.psql.ConnectionConstants.*;
+import static org.testng.Assert.*;
 
 public class PsqlEventSourceIntegrationTest {
 

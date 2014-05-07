@@ -5,17 +5,12 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
-import static java.lang.Thread.sleep;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.reactivesource.common.TestConstants.INTEGRATION;
-import static org.reactivesource.psql.ConnectionConstants.PASSWORD;
-import static org.reactivesource.psql.ConnectionConstants.PSQL_URL;
-import static org.reactivesource.psql.ConnectionConstants.TEST_TABLE_NAME;
-import static org.reactivesource.psql.ConnectionConstants.USERNAME;
-import static org.testng.Assert.fail;
+import org.reactivesource.ConnectionProvider;
+import org.reactivesource.Event;
+import org.reactivesource.EventListener;
+import org.reactivesource.ReactiveDatasource;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,12 +18,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
 
-import org.reactivesource.ConnectionProvider;
-import org.reactivesource.Event;
-import org.reactivesource.EventListener;
-import org.reactivesource.ReactiveDatasource;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import static java.lang.Thread.sleep;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
+import static org.reactivesource.common.TestConstants.*;
+import static org.reactivesource.psql.ConnectionConstants.*;
+import static org.testng.Assert.*;
 
 public class ReactiveDatasourcePsqlIntegrationTest {
 
@@ -55,6 +50,7 @@ public class ReactiveDatasourcePsqlIntegrationTest {
         // add new eventListener
         rds.addEventListener(eventListener);
         rds.start();
+        sleep(200L); //wait for the thread to be started
 
         // insert new entities
         for (int i = 0; i < ENTITIES; i++) {

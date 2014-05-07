@@ -2,7 +2,7 @@ package org.reactivesource;
 
 import org.testng.annotations.Test;
 
-import static org.reactivesource.common.TestConstants.SMALL;
+import static org.reactivesource.common.TestConstants.*;
 
 public class AbstractConnectionProviderTest {
 

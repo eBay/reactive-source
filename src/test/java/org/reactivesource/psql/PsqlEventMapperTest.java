@@ -5,18 +5,14 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
-import static org.reactivesource.common.TestConstants.SMALL;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import com.beust.jcommander.internal.Maps;
+import org.reactivesource.Event;
+import org.testng.annotations.Test;
 
 import java.util.Map;
 
-import org.reactivesource.Event;
-import org.reactivesource.psql.InvalidPayloadException;
-import org.reactivesource.psql.PsqlEventMapper;
-import org.testng.annotations.Test;
-
-import com.beust.jcommander.internal.Maps;
+import static org.reactivesource.common.TestConstants.*;
+import static org.testng.Assert.*;
 
 public class PsqlEventMapperTest {
 

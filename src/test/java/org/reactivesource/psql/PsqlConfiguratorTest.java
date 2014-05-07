@@ -1,13 +1,12 @@
 package org.reactivesource.psql;
 
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.reactivesource.common.TestConstants.INTEGRATION;
-import static org.reactivesource.common.TestConstants.SMALL;
-
 import org.mockito.Mock;
 import org.reactivesource.ConnectionProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.reactivesource.common.TestConstants.*;
 
 public class PsqlConfiguratorTest {
 

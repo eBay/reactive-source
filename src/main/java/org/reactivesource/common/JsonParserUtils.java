@@ -9,7 +9,6 @@ package org.reactivesource.common;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.util.HashMap;

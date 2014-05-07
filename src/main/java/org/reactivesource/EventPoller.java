@@ -5,14 +5,14 @@
  ******************************************************************************/
 package org.reactivesource;
 
-import static org.springframework.util.Assert.notNull;
+import org.reactivesource.exceptions.DataAccessException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
 
-import org.reactivesource.exceptions.DataAccessException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.springframework.util.Assert.notNull;
 
 class EventPoller<T> implements Runnable {
     private final Logger logger = LoggerFactory.getLogger(getClass());

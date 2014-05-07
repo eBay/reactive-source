@@ -1,18 +1,15 @@
 package org.reactivesource.psql;
 
-import static java.lang.String.format;
-import static org.reactivesource.common.TestConstants.INTEGRATION;
-import static org.reactivesource.psql.ConnectionConstants.PASSWORD;
-import static org.reactivesource.psql.ConnectionConstants.PSQL_URL;
-import static org.reactivesource.psql.ConnectionConstants.TEST_TABLE_NAME;
-import static org.reactivesource.psql.ConnectionConstants.USERNAME;
+import org.reactivesource.ConnectionProvider;
+import org.testng.annotations.BeforeSuite;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.reactivesource.ConnectionProvider;
-import org.testng.annotations.BeforeSuite;
+import static java.lang.String.format;
+import static org.reactivesource.common.TestConstants.*;
+import static org.reactivesource.psql.ConnectionConstants.*;
 
 public class SetupTestsForSuite {
     

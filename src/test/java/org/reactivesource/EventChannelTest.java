@@ -4,24 +4,19 @@
  * See the file license.txt for copying permission.
  ******************************************************************************/
 package org.reactivesource;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.reactivesource.common.TestConstants.SMALL;
-import static org.testng.Assert.assertNotNull;
 
-import java.util.Map;
-
+import com.google.common.collect.Maps;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.reactivesource.Event;
-import org.reactivesource.EventChannel;
-import org.reactivesource.EventListener;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
+
+import static org.mockito.Mockito.*;
+import static org.reactivesource.common.TestConstants.*;
+import static org.testng.Assert.*;
 
 @SuppressWarnings("unchecked")
 public class EventChannelTest {

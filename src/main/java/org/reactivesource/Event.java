@@ -5,10 +5,10 @@
  ******************************************************************************/
 package org.reactivesource;
 
+import com.google.common.base.Objects;
+
 import static org.springframework.util.Assert.hasText;
 import static org.springframework.util.Assert.notNull;
-
-import com.google.common.base.Objects;
 
 public class Event<T> {
 

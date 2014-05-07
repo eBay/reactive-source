@@ -5,24 +5,16 @@
  ******************************************************************************/
 package org.reactivesource.psql;
 
-import static org.reactivesource.common.JsonParserUtils.jsonObjectToMap;
-import static org.reactivesource.psql.PsqlPayloadConstants.EVENT_TYPE_KEY;
-import static org.reactivesource.psql.PsqlPayloadConstants.NEW_ENTITY_KEY;
-import static org.reactivesource.psql.PsqlPayloadConstants.OLD_ENTITY_KEY;
-import static org.reactivesource.psql.PsqlPayloadConstants.TABLE_NAME_KEY;
-import static org.springframework.util.Assert.isTrue;
-import static org.springframework.util.Assert.notNull;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.reactivesource.Event;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.reactivesource.common.JsonParserUtils;
+import java.util.Map;
+
+import static org.reactivesource.common.JsonParserUtils.jsonObjectToMap;
+import static org.reactivesource.psql.PsqlPayloadConstants.*;
+import static org.springframework.util.Assert.isTrue;
+import static org.springframework.util.Assert.notNull;
 
 class PsqlEventMapper {
 

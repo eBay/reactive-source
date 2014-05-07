@@ -1,9 +1,9 @@
 package org.reactivesource.psql;
 
-import static org.reactivesource.common.TestConstants.SMALL;
-import static org.testng.Assert.assertEquals;
-
 import org.testng.annotations.Test;
+
+import static org.reactivesource.common.TestConstants.*;
+import static org.testng.Assert.*;
 
 public class PsqlQueryGeneratorTest {
 

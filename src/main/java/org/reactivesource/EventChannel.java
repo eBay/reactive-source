@@ -5,14 +5,14 @@
  ******************************************************************************/
 package org.reactivesource;
 
-import static org.springframework.util.Assert.notNull;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import com.google.common.collect.Lists;
+import static org.springframework.util.Assert.notNull;
 
 /**
  * The EventChannel is responsible for propagating events to the registered event listeners.
