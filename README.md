@@ -9,10 +9,10 @@ that there is new or updated data available.
 Currently supported database systems:
 
 * **Postgres**
+* **MySQL**
 
 Upcoming database systems:
 
-* **MYSQL**
 * **MongoDB**
 
 Setup for Postgres

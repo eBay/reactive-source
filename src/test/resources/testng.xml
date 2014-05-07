@@ -11,9 +11,11 @@
 		<packages>
 			<package name="org.reactivesource.*">
 				<exclude name="org.reactivesource.psql"></exclude>
+                <exclude name="org.reactivesource.mysql"></exclude>
 			</package>
 		</packages>
 	</test>
+
 	<test name="Integration Tests">
 		<groups>
 			<run>
@@ -24,6 +26,7 @@
 		<packages>
 			<package name="org.reactivesource.*">
 				<exclude name="org.reactivesource.psql"></exclude>
+                <exclude name="org.reactivesource.mysql"></exclude>
 			</package>
 		</packages>
  	</test>
