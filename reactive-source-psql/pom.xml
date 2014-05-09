@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013-2014 eBay Software Foundation
+  ~
+  ~ See the file license.txt for copying permission.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.reactivesource</groupId>
+        <artifactId>reactive-source</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>reactive-source-psql</artifactId>
+
+    <properties>
+        <psql.jdbc.version>9.1-901.jdbc4</psql.jdbc.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- PSQL Driver -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${psql.jdbc.version}</version>
+        </dependency>
+
+        <!-- Project dependencies -->
+        <dependency>
+            <groupId>org.reactivesource</groupId>
+            <artifactId>reactive-source-core</artifactId>
+        </dependency>
+
+        <!-- APACHE IO -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <!-- TEST -->
+        <dependency>
+            <groupId>org.reactivesource</groupId>
+            <artifactId>common-testing-utils</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
