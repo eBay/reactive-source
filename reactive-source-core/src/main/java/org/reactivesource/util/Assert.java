@@ -4,7 +4,7 @@
  * See the file license.txt for copying permission.
  ******************************************************************************/
 
-package org.reactivesource.common;
+package org.reactivesource.util;
 
 import java.util.Collection;
 

@@ -17,10 +17,10 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.*;
 
-import static org.reactivesource.common.JdbcUtils.closeResultset;
-import static org.reactivesource.common.JdbcUtils.closeStatement;
-import static org.reactivesource.common.Assert.hasText;
-import static org.reactivesource.common.Assert.notNull;
+import static org.reactivesource.util.JdbcUtils.closeResultset;
+import static org.reactivesource.util.JdbcUtils.closeStatement;
+import static org.reactivesource.util.Assert.hasText;
+import static org.reactivesource.util.Assert.notNull;
 
 class PsqlConfigurator {
 

@@ -7,9 +7,8 @@
 package org.reactivesource.mysql;
 
 import org.apache.commons.lang.time.DateUtils;
-import org.reactivesource.common.JdbcUtils;
+import org.reactivesource.util.JdbcUtils;
 import org.reactivesource.exceptions.DataAccessException;
-import org.reactivesource.testing.DateConstants;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

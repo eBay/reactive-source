@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import static org.reactivesource.common.Assert.hasText;
+import static org.reactivesource.util.Assert.hasText;
 
 class MysqlConfigurator {
 

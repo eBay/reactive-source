@@ -7,7 +7,7 @@
 package org.reactivesource.mysql;
 
 import org.reactivesource.ConnectionProvider;
-import org.reactivesource.common.JdbcUtils;
+import org.reactivesource.util.JdbcUtils;
 import org.reactivesource.exceptions.ConfigurationException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

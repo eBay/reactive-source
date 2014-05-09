@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static org.reactivesource.common.Assert.notNull;
+import static org.reactivesource.util.Assert.notNull;
 
 /**
  * The EventChannel is responsible for propagating events to the registered event listeners.

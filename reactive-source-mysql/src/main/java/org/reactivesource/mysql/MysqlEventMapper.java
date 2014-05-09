@@ -7,7 +7,7 @@
 package org.reactivesource.mysql;
 
 import org.reactivesource.Event;
-import org.reactivesource.common.JsonParserUtils;
+import org.reactivesource.util.JsonParserUtils;
 
 import java.util.Map;
 

@@ -7,7 +7,7 @@
 package org.reactivesource.mysql;
 
 import org.apache.commons.io.IOUtils;
-import org.reactivesource.common.JdbcUtils;
+import org.reactivesource.util.JdbcUtils;
 
 import java.io.IOException;
 import java.sql.Connection;

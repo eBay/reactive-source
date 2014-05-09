@@ -4,7 +4,7 @@
  * See the file license.txt for copying permission.
  ******************************************************************************/
 
-package org.reactivesource.common;
+package org.reactivesource.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.reactivesource.common.Assert.notNull;
+import static org.reactivesource.util.Assert.notNull;
 
 @SuppressWarnings("unchecked")
 public class JsonParserUtils {

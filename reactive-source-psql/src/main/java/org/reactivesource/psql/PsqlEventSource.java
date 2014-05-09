@@ -13,7 +13,7 @@ import org.postgresql.PGNotification;
 import org.reactivesource.ConnectionProvider;
 import org.reactivesource.Event;
 import org.reactivesource.EventSource;
-import org.reactivesource.common.JdbcUtils;
+import org.reactivesource.util.JdbcUtils;
 import org.reactivesource.exceptions.DataAccessException;
 
 import java.sql.Connection;
@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 import static java.lang.String.format;
-import static org.reactivesource.common.Assert.notNull;
-import static org.reactivesource.common.Assert.state;
+import static org.reactivesource.util.Assert.notNull;
+import static org.reactivesource.util.Assert.state;
 
 public class PsqlEventSource implements EventSource {
 

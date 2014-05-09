@@ -3,7 +3,7 @@
  * 
  * See the file license.txt for copying permission.
  ******************************************************************************/
-package org.reactivesource.common;
+package org.reactivesource.util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

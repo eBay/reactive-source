@@ -11,8 +11,8 @@ import org.reactivesource.Event;
 
 import java.util.Date;
 
-import static org.reactivesource.common.Assert.isTrue;
-import static org.reactivesource.common.Assert.notNull;
+import static org.reactivesource.util.Assert.isTrue;
+import static org.reactivesource.util.Assert.notNull;
 
 class MysqlEvent extends Event<String> {
 

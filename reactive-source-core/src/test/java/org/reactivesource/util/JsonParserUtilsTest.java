@@ -4,15 +4,15 @@
  * See the file license.txt for copying permission.
  ******************************************************************************/
 
-package org.reactivesource.common;
+package org.reactivesource.util;
 
 import org.json.JSONException;
 import org.testng.annotations.Test;
 
 import java.util.Map;
 
-import static org.reactivesource.common.JsonParserUtils.jsonObjectToMap;
-import static org.reactivesource.common.JsonParserUtils.jsonStringToMap;
+import static org.reactivesource.util.JsonParserUtils.jsonObjectToMap;
+import static org.reactivesource.util.JsonParserUtils.jsonStringToMap;
 import static org.reactivesource.testing.TestConstants.*;
 import static org.testng.Assert.*;
 

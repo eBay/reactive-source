@@ -7,8 +7,8 @@ package org.reactivesource;
 
 import com.google.common.base.Objects;
 
-import static org.reactivesource.common.Assert.hasText;
-import static org.reactivesource.common.Assert.notNull;
+import static org.reactivesource.util.Assert.hasText;
+import static org.reactivesource.util.Assert.notNull;
 
 public class Event<T> {
 

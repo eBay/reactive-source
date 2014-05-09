@@ -15,8 +15,8 @@ import org.testng.annotations.Test;
 
 import java.sql.*;
 
-import static org.reactivesource.common.JdbcUtils.closeResultset;
-import static org.reactivesource.common.JdbcUtils.closeStatement;
+import static org.reactivesource.util.JdbcUtils.closeResultset;
+import static org.reactivesource.util.JdbcUtils.closeStatement;
 import static org.reactivesource.testing.TestConstants.*;
 import static org.reactivesource.psql.ConnectionConstants.*;
 import static org.reactivesource.psql.PsqlConfigurator.FUNCTION_NAME;

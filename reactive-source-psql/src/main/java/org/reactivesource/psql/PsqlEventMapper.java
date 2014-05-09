@@ -12,10 +12,10 @@ import org.reactivesource.Event;
 
 import java.util.Map;
 
-import static org.reactivesource.common.JsonParserUtils.jsonObjectToMap;
+import static org.reactivesource.util.JsonParserUtils.jsonObjectToMap;
 import static org.reactivesource.psql.PsqlPayloadConstants.*;
-import static org.reactivesource.common.Assert.isTrue;
-import static org.reactivesource.common.Assert.notNull;
+import static org.reactivesource.util.Assert.isTrue;
+import static org.reactivesource.util.Assert.notNull;
 
 class PsqlEventMapper {
 
