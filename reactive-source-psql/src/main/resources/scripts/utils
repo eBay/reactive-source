@@ -1,0 +1,109 @@
+#!/bin/bash
+
+#=======================================================
+# Copyright (c) 2013-2014 eBay Software Foundation
+#
+# See the file license.txt for copying permission.
+#======================================================= 
+
+usage_connection() {
+cat << EOF
+Usage: $0 OPTIONS
+
+OPTIONS:
+   -h host          PSQL server (default localhost)
+   -u username      Username (default: $USER)
+   -p password      Password
+   -P port          Port  number (default: 5432)
+   -d database      Database to use in order to connect to the database (default: postgres).
+                    Specify only if for some reason you have removed the postgres database
+                    from your schema
+EOF
+}
+
+usage_notifications() {
+usage_connection
+cat << EOF
+   -t tableName     the name of the table for which you want to setup the notifications
+   -s streamName    The streamName to which the notifications will be pushed. This
+                    is the same as the string you will use to call LISTEN <streamName>
+EOF
+}
+
+verifyLastCommand() {
+  if [ $? -ne 0 ]
+  then
+    echo $1
+    exit 1
+  fi
+}
+
+##
+## Extracts the following parameters:
+## SERVER,DATABASE,USERNAME,PASSWORD,PORT
+##
+readConnectionParams() {
+  local OPTIND
+
+  SERVER="localhost"
+  DATABASE="postgres"
+  USERNAME=$USER
+  PORT=5432
+  PASSWORD=
+
+  while getopts ���:h:d:u:p:P:t:s:��� OPTION
+  do
+       case $OPTION in
+           h)
+               SERVER=$OPTARG
+               ;;
+           d)
+               DATABASE=$OPTARG
+               ;;
+           u)
+               USERNAME=$OPTARG
+               ;;
+           p)
+               PASSWORD=$OPTARG
+               ;;
+           P)
+               PORT=$OPTARG
+               ;;
+       esac
+  done
+
+  if [[ -z $SERVER ]] || [[ -z $DATABASE ]] || [[ -z $USERNAME ]] || [[ -z $PORT ]]
+  then
+    return 1
+  else
+    return 0
+  fi
+}
+
+readTableAndStreamParams() {
+    # read table and stream name parameters
+  local OPTIND
+
+  STREAM_NAME=
+  TABLE_NAME=
+
+  while getopts ���:h:d:u:p:P:t:s:��� OPTION
+  do
+       case $OPTION in
+           t)
+               TABLE_NAME=$OPTARG
+               ;;
+           s)
+               STREAM_NAME=$OPTARG
+               ;;
+       esac
+  done
+
+  # TABLE_NAME and STREAM_NAME must not be empty
+  if [[ -z $STREAM_NAME ]] || [[ -z $TABLE_NAME ]]
+  then
+    return 1
+  else
+    return 0
+  fi
+}

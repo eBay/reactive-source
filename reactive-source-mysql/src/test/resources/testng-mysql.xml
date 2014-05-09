@@ -1,0 +1,32 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) 2013-2014 eBay Software Foundation
+  ~
+  ~ See the file license.txt for copying permission.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Mysql Specific Tests" parallel="tests" thread-count="1" verbose="1">
+	<test name="Small Tests">
+		<groups>
+			<run>
+				<include name="small" />
+				<exclude name="broken" />
+			</run>
+		</groups>
+		<packages>
+			<package name="org.reactivesource.mysql.*"></package>
+		</packages>
+	</test>
+	<test name="Integration Tests">
+		<groups>
+			<run>
+				<include name="integration" />
+				<exclude name="broken" />
+			</run>
+		</groups>
+		<packages>
+			<package name="org.reactivesource.mysql.*"></package>
+		</packages>
+ 	</test>
+</suite>
