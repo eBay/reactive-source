@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import static org.springframework.util.Assert.hasText;
+import static org.reactivesource.common.Assert.hasText;
 
 class MysqlConfigurator {
 

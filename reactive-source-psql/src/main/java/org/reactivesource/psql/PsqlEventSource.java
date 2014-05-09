@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 import static java.lang.String.format;
-import static org.springframework.util.Assert.notNull;
-import static org.springframework.util.Assert.state;
+import static org.reactivesource.common.Assert.notNull;
+import static org.reactivesource.common.Assert.state;
 
 public class PsqlEventSource implements EventSource {
 

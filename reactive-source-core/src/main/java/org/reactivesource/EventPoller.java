@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.util.Assert.notNull;
+import static org.reactivesource.common.Assert.notNull;
 
 class EventPoller<T> implements Runnable {
     private final Logger logger = LoggerFactory.getLogger(getClass());

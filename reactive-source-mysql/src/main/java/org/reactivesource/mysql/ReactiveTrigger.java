@@ -12,7 +12,7 @@ import static java.lang.String.format;
 import static org.reactivesource.mysql.MysqlEventRepo.*;
 import static org.reactivesource.mysql.ReactiveTrigger.TriggerEvent.DELETE;
 import static org.reactivesource.mysql.ReactiveTrigger.TriggerEvent.INSERT;
-import static org.springframework.util.Assert.*;
+import static org.reactivesource.common.Assert.*;
 
 class ReactiveTrigger {
     private static final String EMPTY_TRIGGER_NAME_MSG = "triggerName can not be null or empty";

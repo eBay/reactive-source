@@ -9,7 +9,7 @@ import com.google.common.annotations.VisibleForTesting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.springframework.util.Assert.notNull;
+import static org.reactivesource.common.Assert.notNull;
 
 public class ReactiveDatasource<T> {
 

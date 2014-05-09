@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static org.springframework.util.Assert.hasText;
+import static org.reactivesource.common.Assert.hasText;
 
 public abstract class AbstractConnectionProvider implements ConnectionProvider {
 

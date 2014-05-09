@@ -3,6 +3,7 @@
  *
  * See the file license.txt for copying permission.
  ******************************************************************************/
+
 package org.reactivesource.psql;
 
 import org.json.JSONException;
@@ -13,8 +14,8 @@ import java.util.Map;
 
 import static org.reactivesource.common.JsonParserUtils.jsonObjectToMap;
 import static org.reactivesource.psql.PsqlPayloadConstants.*;
-import static org.springframework.util.Assert.isTrue;
-import static org.springframework.util.Assert.notNull;
+import static org.reactivesource.common.Assert.isTrue;
+import static org.reactivesource.common.Assert.notNull;
 
 class PsqlEventMapper {
 

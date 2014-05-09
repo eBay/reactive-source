@@ -16,16 +16,15 @@
 
     <properties>
         <!-- dependency properties -->
-        <spring.version>3.2.4.RELEASE</spring.version>
-        <testng.version>6.8.7</testng.version>
-        <mockito.version>1.8.4</mockito.version>
-        <hamcrest.version>1.3</hamcrest.version>
         <guava.version>11.0.2</guava.version>
-        <sl4j-api.version>1.7.5</sl4j-api.version>
-        <log4j.version>1.2.17</log4j.version>
         <commons-io.version>2.4</commons-io.version>
         <jackson.version>2.2.3</jackson.version>
         <org.json.version>20131018</org.json.version>
+        <sl4j-api.version>1.7.5</sl4j-api.version>
+        <log4j.version>1.2.17</log4j.version>
+        <testng.version>6.8.7</testng.version>
+        <mockito.version>1.8.4</mockito.version>
+        <hamcrest.version>1.3</hamcrest.version>
 
         <!-- plugin properties -->
         <maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
@@ -60,17 +59,17 @@
                 <artifactId>reactive-source-psql</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- APACHE COMMONS -->
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
-
-            <!-- SPRING -->
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${spring.version}</version>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
 
             <!-- GUAVA -->
@@ -90,13 +89,6 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
-            </dependency>
-
-            <!-- APACHE COMMONS -->
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
             </dependency>
 
             <!-- JSON -->
@@ -129,12 +121,6 @@
         </dependency>
 
         <!-- == TESTING PART == -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.springframework.util.Assert.notNull;
+import static org.reactivesource.common.Assert.notNull;
 
 @SuppressWarnings("unchecked")
 public class JsonParserUtils {

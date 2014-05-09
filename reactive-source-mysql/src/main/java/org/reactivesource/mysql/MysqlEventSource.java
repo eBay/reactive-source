@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static org.springframework.util.Assert.hasText;
-import static org.springframework.util.Assert.notNull;
+import static org.reactivesource.common.Assert.hasText;
+import static org.reactivesource.common.Assert.notNull;
 
 @NotThreadSafe
 public class MysqlEventSource implements EventSource {

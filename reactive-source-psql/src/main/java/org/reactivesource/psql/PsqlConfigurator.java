@@ -3,6 +3,7 @@
  *
  * See the file license.txt for copying permission.
  ******************************************************************************/
+
 package org.reactivesource.psql;
 
 import org.apache.commons.io.IOUtils;
@@ -18,8 +19,8 @@ import java.sql.*;
 
 import static org.reactivesource.common.JdbcUtils.closeResultset;
 import static org.reactivesource.common.JdbcUtils.closeStatement;
-import static org.springframework.util.Assert.hasText;
-import static org.springframework.util.Assert.notNull;
+import static org.reactivesource.common.Assert.hasText;
+import static org.reactivesource.common.Assert.notNull;
 
 class PsqlConfigurator {
 

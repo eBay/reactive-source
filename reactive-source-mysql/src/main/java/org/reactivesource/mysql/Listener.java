@@ -8,8 +8,8 @@ package org.reactivesource.mysql;
 
 import java.util.Date;
 
-import static org.springframework.util.Assert.hasText;
-import static org.springframework.util.Assert.isTrue;
+import static org.reactivesource.common.Assert.hasText;
+import static org.reactivesource.common.Assert.isTrue;
 
 class Listener {
 

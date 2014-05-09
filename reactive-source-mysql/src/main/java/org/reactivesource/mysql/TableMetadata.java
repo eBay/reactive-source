@@ -9,7 +9,7 @@ package org.reactivesource.mysql;
 import com.google.common.collect.Lists;
 import org.reactivesource.ConnectionProvider;
 import org.reactivesource.exceptions.DataAccessException;
-import org.springframework.util.Assert;
+import org.reactivesource.common.Assert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
